@@ -1,0 +1,155 @@
+* {
+    box-sizing: border-box;
+
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+    cursor: crosshair;
+    user-select: none;
+
+    font-family: sans-serif;
+    font-size: 100px;
+}
+
+.muie {
+    height: 5.8em;
+    margin: 0.3em;
+    z-index: 1000;
+
+    transition: transform 100ms ease-in-out;
+    animation: move 8s infinite alternate ease-in-out;
+}
+
+.walk {
+    animation: walk 2s ease-in-out 1;
+}
+
+.morto {
+    transform: rotate(-90deg);
+    animation-play-state: paused;
+}
+
+.sumido {
+    display: none;
+}
+
+.stats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5em 0.5em;
+
+    background-color: rgba(255, 0, 0, 0.5);
+
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 0.2em;
+    color: white;
+    text-shadow: 0.02em 0.02em black;
+}
+
+.arma {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    
+    width: 6em;
+
+    transition: all 50ms ease-in-out;
+}
+
+.recoil {
+    margin-bottom: 0.5em;
+    transform: rotate(-10deg);
+}
+
+.pulo {
+    padding-left: 0.3em;
+}
+
+.arma.reload {
+    bottom: -0.5em;
+
+    transform: rotate(-50deg);
+}
+
+.carregador {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carregador img {
+    transition: all 100ms ease-in-out;
+}
+
+.carregador img.reload {
+    margin-right: 0.1em;
+    transform: scale(0.9);
+}
+
+.numbala {
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.nobalas {
+    margin: 0 2px 2px 0;
+
+    transform: rotate(3deg);
+}
+
+.boya {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: white;
+    visibility: hidden;
+}
+
+.boya img {
+    transition: none;
+    visibility: inherit;
+}
+
+@keyframes move {
+    0% { margin-left: 0vw; }
+    5% { margin-left: 0vw; }
+    95% { margin-left: 70vw; }
+    100% { margin-left: 70vw; }
+}
+
+@keyframes walk {
+    0% { opacity: 0; transform: scale(0.5);}
+    10% { transform: rotate(5deg) scale(0.55); }
+    20% { transform: rotate(-5deg) scale(0.6); }
+    30% { transform: rotate(5deg) scale(0.65); }
+    40% { transform: rotate(-5deg) scale(0.7); }
+    50% { transform: rotate(5deg) scale(0.75); }
+    60% { transform: rotate(-5deg) scale(0.8); }
+    70% { transform: rotate(5deg) scale(0.85); }
+    80% { transform: rotate(-5deg) scale(0.9); }
+    90% { transform: rotate(5deg) scale(0.95); }
+    100% { transform: rotate(0deg) scale(1); }
+}
