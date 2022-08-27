@@ -120,19 +120,15 @@ function playAudio(audio) {
     audio.play()
 }
 
-function move(dir) {
-    if (dir) { arma.style.left = `${Number(arma.style.left.slice(0, -2)) + 20}px` }
-    else     { arma.style.left = `${Number(arma.style.left.slice(0, -2)) - 20}px` }
-}
-
 // EVENT LISTENER
 carregador.addEventListener('click', e => reload(), false)
 document.addEventListener('keypress', e => { if (e.key == 'r') reload() })
-document.addEventListener('keydown', e => { if (e.key == 'd') move(1); if (e.key == 'a') move(0) })
+document.addEventListener('mousemove', e => { arma.style.left = `${e.x - arma.offsetWidth / 2}px`})
 
 document.addEventListener('click', e => { if (e.target == document.body) shoot(0) }, false)
 head.addEventListener('click', e => { shoot(5) }, false)
 body.addEventListener('click', e => { shoot(1) }, false)
+sniper.addEventListener('click', e => { shoot(0) }, false)
 
 window.addEventListener('load', e => mapResizer(), false)
 

@@ -63,6 +63,7 @@ body {
     width: 6em;
 
     transition: left 100ms linear;
+    cursor: default;
 }
 
 .recoil {
@@ -90,6 +91,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    cursor: pointer;
 }
 
 .carregador img {
