@@ -19,13 +19,13 @@ const sndClick = new Audio('./assets/audio/click.mp3')
 
 // VARIABLES
 let hp = 5
-let ammo = 10
-shooting = false
+let ammo = 3
+let shooting = false
 let reloading = false
+reloadWait = false
 let alive = (Math.random() * (3) + 2).toFixed()
 
 // FUNCTIONS
-
 function kill() {
     playAudio(sndDeath)
     
@@ -47,17 +47,19 @@ function attStats() {
 }
 
 function shoot(damage) {
-    if (shooting) return
+    if (shooting || reloading) return
 
     shooting = true
-    setTimeout(e => { shooting = false }, 500)
-    
-    if (ammo > 0) ammo -= 1
-    numbala.innerText = ammo
-
-    hit(damage)
+    setTimeout(e => { 
+        shooting = false 
+        if (reloadWait) reload()
+    }, 500)
     
     if (ammo > 0) {
+        ammo -= 1
+        numbala.innerText = ammo
+
+        hit(damage)
         playAudio(sndPow)
         addRemove(arma, 'recoil', 100)
     } 
@@ -77,6 +79,8 @@ function hit(damage) {
 }
 
 function reload() {
+    if (shooting) return reloadWait = true
+    reloadWait = false
     reloading = true
     playAudio(sndReload)
     setTimeout(e => { reloading = false }, 1500)
@@ -86,7 +90,7 @@ function reload() {
     setTimeout(() => { numbala.innerHTML = '0' }, 200)
     setTimeout(() => { addRemove(arma, 'pulo', 300) }, 600)
     setTimeout(e => {
-        ammo = 10
+        ammo = 3
         numbala.innerHTML = ammo
     }, 1400)
 }
@@ -116,22 +120,19 @@ function playAudio(audio) {
     audio.play()
 }
 
+function move(dir) {
+    if (dir) { arma.style.left = `${Number(arma.style.left.slice(0, -2)) + 20}px` }
+    else     { arma.style.left = `${Number(arma.style.left.slice(0, -2)) - 20}px` }
+}
+
 // EVENT LISTENER
 carregador.addEventListener('click', e => reload(), false)
 document.addEventListener('keypress', e => { if (e.key == 'r') reload() })
+document.addEventListener('keydown', e => { if (e.key == 'd') move(1); if (e.key == 'a') move(0) })
 
-document.addEventListener('click', e => {
-    if (ammo > 0) { if (!reloading) shoot(0) }
-    else { addRemove(arma, 'nobalas', 100) }
-}, false)
-head.addEventListener('click', e => {
-    if (ammo > 0) { if (!reloading) shoot(5) }
-    else { addRemove(arma, 'nobalas', 100) }
-}, false)
-body.addEventListener('click', e => {
-    if (ammo > 0) { if (!reloading) shoot(1) }
-    else { addRemove(arma, 'nobalas', 100) }
-}, false)
+document.addEventListener('click', e => { if (e.target == document.body) shoot(0) }, false)
+head.addEventListener('click', e => { shoot(5) }, false)
+body.addEventListener('click', e => { shoot(1) }, false)
 
 window.addEventListener('load', e => mapResizer(), false)
 

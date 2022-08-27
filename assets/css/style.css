@@ -62,7 +62,7 @@ body {
     
     width: 6em;
 
-    transition: all 50ms ease-in-out;
+    transition: left 100ms linear;
 }
 
 .recoil {
