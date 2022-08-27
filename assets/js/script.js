@@ -16,6 +16,7 @@ const sndDamage = new Audio('./assets/audio/uf.mp3')
 const sndDeath = new Audio('./assets/audio/oof.mp3')
 const sndReload = new Audio('./assets/audio/reload.mp3')
 const sndClick = new Audio('./assets/audio/click.mp3')
+const sndMetal = new Audio('./assets/audio/metal.mp3')
 
 // VARIABLES
 let hp = 5
@@ -128,7 +129,7 @@ document.addEventListener('mousemove', e => { arma.style.left = `${e.x - arma.of
 document.addEventListener('click', e => { if (e.target == document.body) shoot(0) }, false)
 head.addEventListener('click', e => { shoot(5) }, false)
 body.addEventListener('click', e => { shoot(1) }, false)
-sniper.addEventListener('click', e => { shoot(0) }, false)
+sniper.addEventListener('click', e => { sndMetal.play(); shoot(0) }, false)
 
 window.addEventListener('load', e => mapResizer(), false)
 
