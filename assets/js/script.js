@@ -47,7 +47,7 @@ function attStats() {
     }
 }
 
-function shoot(damage) {
+function shoot(damage, metal = false) {
     if (shooting || reloading) return
 
     shooting = true
@@ -62,6 +62,9 @@ function shoot(damage) {
 
         hit(damage)
         playAudio(sndPow)
+        if (metal) {
+            setTimeout(e => playAudio(sndMetal), 400)
+        }
         addRemove(arma, 'recoil', 100)
     } 
     else {
@@ -129,7 +132,7 @@ document.addEventListener('mousemove', e => { arma.style.left = `${e.x - arma.of
 document.addEventListener('click', e => { if (e.target == document.body) shoot(0) }, false)
 head.addEventListener('click', e => { shoot(5) }, false)
 body.addEventListener('click', e => { shoot(1) }, false)
-sniper.addEventListener('click', e => { sndMetal.play(); shoot(0) }, false)
+sniper.addEventListener('click', e => { shoot(0, true) }, false)
 
 window.addEventListener('load', e => mapResizer(), false)
 
