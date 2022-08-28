@@ -23,11 +23,14 @@ let hp = 5
 let ammo = 3
 let shooting = false
 let reloading = false
-reloadWait = false
+letreloadWait = false
 let alive = (Math.random() * (3) + 2).toFixed()
+let morto = false
 
 // FUNCTIONS
 function kill() {
+    morto = true
+    setTimeout(e => {  morto = false }, 3000);
     playAudio(sndDeath)
     
     addRemove(muie, 'morto', 1500)
@@ -74,7 +77,7 @@ function shoot(damage, metal = false) {
 }
 
 function hit(damage) {
-    playAudio(sndPow)
+    if (morto) return
     hp -= damage
 
     if (damage == 0) return
